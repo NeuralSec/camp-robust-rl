@@ -74,7 +74,7 @@ Arguments setting:\
 ```to_plot```: Which figure to plot. Select from {```"comparison"```, ```"ablation"```}. ```"comparison"``` plots the certifed expected returns from different training methods in various environments. ```"ablation"``` plot the ablation study on $\lambda$.
 
 
-### 4. Attack Agents and Plot Results
+### 5. Attack Agents and Plot Results
 We adopt PGD and APGD attacks to evaluate the empirical robustness of agents. This part requires a little bit modification of the script: **the to-be-excuted ```.py``` file should be selected according to the RL environment.** Please follow the comments in the script. Run the following script for **PGD**:
 ```
 cd attacks
