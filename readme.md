@@ -19,15 +19,15 @@ Run the following script to train DQN using **CAMP** or the **Gaussian baseline*
 ```
 bash dqn_train.sh
 ```
-Set arguments in the script:
-```env_id```: Set RL environment. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```, ```"pong1r"```, ```"freeway"```, ```"bankheist"```}.
-```train_mode```: Set training method. Select from {```"baseline"```, ```"camp"```}. ```"baseline"``` refers to the Gaussian baseline.
-```config_path```: Select ```"config"``` for Cartpole and Highway. Use ```"atari_config"``` for Atari games.
-```env_sigma```: Set the train-time noise scale. Please refer to the paper for the settings in our experiments.
-```lamda```: The $\lambda$ value for CAMP. Leave it to any value in the ```"baseline"``` mode.
+Set arguments in the script:\
+```env_id```: Set RL environment. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```, ```"pong1r"```, ```"freeway"```, ```"bankheist"```}.\
+```train_mode```: Set training method. Select from {```"baseline"```, ```"camp"```}. ```"baseline"``` refers to the Gaussian baseline.\
+```config_path```: Select ```"config"``` for Cartpole and Highway. Use ```"atari_config"``` for Atari games.\
+```env_sigma```: Set the train-time noise scale. Please refer to the paper for the settings in our experiments.\
+```lamda```: The $\lambda$ value for CAMP. Leave it to any value in the ```"baseline"``` mode.\
 
-Arguments for **Atari games**:
-```distill```: Turn on policy distillation when train CAMP agents in 
+Arguments for **Atari games**:\
+```distill```: Turn on policy distillation when train CAMP agents in Atari game environments.\
 ```distill_path```: Set the path to the source policy to distill from.
 
 
@@ -35,10 +35,9 @@ Otherwise, run the following script to train agents with **NoisyNet**:
 ```
 bash noisynet_train.sh
 ```
-Arguments to set in the script:
-
-```env_id```: Set RL environment. Select from {"cartpole_simple", "cartpole_multiframe", "highway"}
-```env_sigma```: Set the train-time noise scale. Please refer to the paper for the settings in our experiments.
+Arguments to set in the script:\
+```env_id```: Set RL environment. Select from {"cartpole_simple", "cartpole_multiframe", "highway"}.\
+```env_sigma```: Set the train-time noise scale. Please refer to the paper for the settings in our experiments.\
 
 
 ### 3. Test Agents
@@ -46,21 +45,21 @@ Test an agent, trained by either CAMP or Gaussian, for multiple runs to obtain a
 ```
 bash dqn_test.sh
 ```
-In the script, set the following arguments to load the corresponding agent for testing.
-```env_id```: Set RL Environment. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```, ```"pong1r"```, ```"freeway"```, ```"bankheist"```}.
-```env_sigma```: The train-time noise scale.
-```checkpoint_path```: The path to the checkpoint for testing (use provided ones in the script).
-```lamda```: $\lambda$ values of the CAMP agent to load
+In the script, set the following arguments to load the corresponding agent for testing.\
+```env_id```: Set RL Environment. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```, ```"pong1r"```, ```"freeway"```, ```"bankheist"```}.\
+```env_sigma```: The train-time noise scale.\
+```checkpoint_path```: The path to the checkpoint for testing (use provided ones in the script).\
+```lamda```: $\lambda$ values of the CAMP agent to load.\
 ```store_all_rewards```: Storing reward at each step instead of only saving the episodic return. Turn on when testing in {```"highway"```, ```"freeway"```, ```"bankheist"```} for correct certification results.
 
 To test a NoisyNet agent, run:
 ```
 bash noisynet_test.sh
 ```
-Arguments setting:
-```env_id```: Set RL Environment. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```}.
-```env_sigma```: The train-time noise scale.
-```checkpoint_path```: The path to the checkpoint for testing (use provided ones in the script).
+Arguments setting:\
+```env_id```: Set RL Environment. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```}.\
+```env_sigma```: The train-time noise scale.\
+```checkpoint_path```: The path to the checkpoint for testing (use provided ones in the script).\
 ```store_all_rewards```: Storing reward at each step instead of only saving the episodic return. Turn on when testing in {```"highway"```} for correct certification results.
 
 
@@ -69,9 +68,9 @@ Load the rewards saved in Step 3 and certify the low bound of the expected retur
 ```
 bash cert.sh
 ```
-Arguments setting:
-```env_id```: Set the RL environment the agent is from. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```, ```"pong1r"```, ```"freeway"```, ```"bankheist"```}.
-```lamda```: The $\lambda$ value of the results to be loaded.
+Arguments setting:\
+```env_id```: Set the RL environment the agent is from. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```, ```"pong1r"```, ```"freeway"```, ```"bankheist"```}.\
+```lamda```: The $\lambda$ value of the results to be loaded.\
 ```to_plot```: Which figure to plot. Select from {```"comparison"```, ```"ablation"```}. ```"comparison"``` plots the certifed expected returns from different training methods in various environments. ```"ablation"``` plot the ablation study on $\lambda$.
 
 
@@ -81,9 +80,9 @@ We adopt PGD and APGD attacks to evaluate the empirical robustness of agents. Th
 cd attacks
 bash attack.sh
 ``` 
-Arguments setting:
-```checkpoint_path```: The path to the checkpoint that will be attacked (use provided ones in the script by only adjusting the ```env_sigma``` value).
-```attack_eps```: Total perturbation budget.
+Arguments setting:\
+```checkpoint_path```: The path to the checkpoint that will be attacked (use provided ones in the script by only adjusting the ```env_sigma``` value).\
+```attack_eps```: Total perturbation budget.\
 ```store_all_rewards```: Storing reward at each step instead of only saving the episodic return. Turn on when testing in {```"highway"```, ```"freeway"```, ```"bankheist"```} for correctly plotting the results.
 
 
@@ -92,7 +91,7 @@ Use the following for **APGD**:
 cd attacks
 bash apgd_attack.sh
 ```
-Arguments setting:
-```checkpoint_path```: The path to the checkpoint that will be attacked (use provided ones in the script by only adjusting the ```env_sigma``` value).
-```attack_eps```: Total perturbation budget.
+Arguments setting:\
+```checkpoint_path```: The path to the checkpoint that will be attacked (use provided ones in the script by only adjusting the ```env_sigma``` value).\
+```attack_eps```: Total perturbation budget.\
 ```store_all_rewards```: Storing reward at each step instead of only saving the episodic return. Turn on when testing in {```"highway"```, ```"freeway"```, ```"bankheist"```} for correctly plotting the results.
