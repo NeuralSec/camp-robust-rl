@@ -1,0 +1,17 @@
+buffer_size: 10000
+total_timesteps: 10000000
+gamma: 0.99
+eps_start: 1.0
+eps_end: 0.01
+tau: 1.0
+batch_size: 32
+lr: 1.e-4
+learning_starts: 100000
+train_frequency: 4
+exploration_fraction: 0.1
+target_network_frequency: 1000
+gradient_steps: 1
+validation_interval: 100000
+validation_episodes: 100
+max_frames_per_val_episode: 250
+num_repeat_exp: 1
