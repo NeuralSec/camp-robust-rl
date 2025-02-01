@@ -24,7 +24,7 @@ Set arguments in the script:\
 ```train_mode```: Set training method. Select from {```"baseline"```, ```"camp"```}. ```"baseline"``` refers to the Gaussian baseline.\
 ```config_path```: Select ```"config"``` for Cartpole and Highway. Use ```"atari_config"``` for Atari games.\
 ```env_sigma```: Set the train-time noise scale. Please refer to the paper for the settings in our experiments.\
-```lamda```: The $\lambda$ value for CAMP. Leave it to any value in the ```"baseline"``` mode.
+```lambda```: The $\lambda$ value for CAMP. Leave it to any value in the ```"baseline"``` mode.
 
 Arguments for **Atari games**:\
 ```distill```: Turn on policy distillation when training CAMP agents in Atari game environments.\
@@ -49,7 +49,7 @@ In the script, set the following arguments to load the corresponding agent for t
 ```env_id```: Set RL Environment. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```, ```"pong1r"```, ```"freeway"```, ```"bankheist"```}.\
 ```env_sigma```: The train-time noise scale.\
 ```checkpoint_path```: The path to the checkpoint for testing (use the provided ones in the script).\
-```lamda```: $\lambda$ values of the CAMP agent to load.\
+```lambda```: $\lambda$ values of the CAMP agent to load.\
 ```store_all_rewards```: Storing reward at each step instead of only saving the episodic return. Turn on when testing in {```"highway"```, ```"freeway"```, ```"bankheist"```} for correct certification results.
 
 To test a NoisyNet agent, run:
@@ -70,7 +70,7 @@ bash cert.sh
 ```
 Arguments setting:\
 ```env_id```: Set the RL environment the agent is from. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```, ```"pong1r"```, ```"freeway"```, ```"bankheist"```}.\
-```lamda```: The $\lambda$ value of the results to be loaded.\
+```lambda```: The $\lambda$ value of the results to be loaded.\
 ```to_plot```: Which figure to plot. Select from {```"comparison"```, ```"ablation"```}. ```"comparison"``` plots the certified expected returns from different training methods in various environments. ```"ablation"``` plot the ablation study on $\lambda$.
 
 
