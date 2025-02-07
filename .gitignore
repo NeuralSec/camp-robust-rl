@@ -114,5 +114,6 @@ venv.bak/
 # experiments results
 exp/
 eval_exp/
+exp_cert/
 *.mp4
 *.meta.json
