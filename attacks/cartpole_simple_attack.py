@@ -113,9 +113,7 @@ if __name__ == '__main__':
 		carryover = args.attack_eps*args.attack_eps
 		for t in range(1, 201):
 			obs, carryover = attack_clean(state,model,carryover)
-			print("obs:", obs)
 			action = model(obs).max(1).indices.view(1,1)
-			print("action:", action)
 			state, reward, terminated, truncated, _ = env.step(action.item())
 			done = terminated or truncated
 			state_hist.append(state)

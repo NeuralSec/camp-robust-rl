@@ -7,13 +7,19 @@ import numpy as np
 import torch
 import matplotlib.pyplot as plt
 import seaborn as sns
+import argparse
 
+parser = argparse.ArgumentParser(description='PyTorch Highway attack')
+parser.add_argument('--attack_type', type=str, default="pgd",
+                    choices=["pgd", "apgd"],
+                    help='select attack method')
+parser.add_argument('--num_evals', type=int, default=1000,
+					help='Number of evaluations')
+args = parser.parse_args()
 
 env_id="cartpole_simple"
-attack_type="apgd" # select from {"pgd", "apgd"}  
 q_gap = 0.0
 lamda=1.0
-
 
 def get_cvar_cert_time_t(estimate, t, eps,sigma):
 	erf = scipy.special.erf(math.sqrt(t+1) * eps/(2*math.sqrt(2)*sigma))
@@ -34,14 +40,16 @@ def _hoeffding_lcb(mean: float,  N: int, alpha: float) -> float:
 
 sns.set_theme(style="darkgrid")
 plt.figure(figsize=(8.4,4.8))
-colors = ['purple', 'black','green']
 linestyles = [(0, (1, 1)), (5, (10, 3)), (0, (5, 10)), (0, (5, 5)), (0, (5, 1)), (0, (3, 1, 1, 1)), (0, (3, 1, 1, 1, 1, 1))]
 attack_mags_nonzero = [0.2, 0.4, 0.6, 0.8, 1.0]
-
+#sigma_list = [0.0, 0.2, 0.6] # Use this to produce Figures 3 and 4.
+#colors = ['purple', 'black','green'] # Use this to produce Figures 3 and 4.
+sigma_list = [0.2] # For USENIX artifact evaluation
+colors = ['black'] # For USENIX artifact evaluation
 
 def plot_gaussian():
 	# Without defense + with Gaussian
-	for j,sigma in enumerate([0.0, 0.2, 0.6]):
+	for j,sigma in enumerate(sigma_list):
 		path = f'../eval_exp/test_dqn_baseline/{env_id}/wrapper_sigma={sigma}-eval/eval_results.pth'
 		attack_vals =  [torch.tensor(torch.load(path)).float().mean().item()]
 		attack_sems = [sem(torch.tensor(torch.load(path)))]
@@ -49,13 +57,12 @@ def plot_gaussian():
 			attack_val = None
 			attack_sem = None
 			for i,thresh in enumerate([q_gap]):
-				#Clean model without defense or with Gaussian
-				if attack_type == "pgd":
+				if args.attack_type == "pgd":
 					data_path=f"../exp/train_dqn_baseline/{env_id}/wrapper_sigma={sigma}-seed=0/checkpoints/{env_id}_restore.pth_" + \
-						'evals_1000_attack_eps_' + str(attack_mag) + '_attack_step_count_multiplier_2' + '_attack_step_0.01_threshold_'+ str(thresh)+ '.pth'
-				elif attack_type == "apgd":
+						f'evals_{args.num_evals}_attack_eps_' + str(attack_mag) + '_attack_step_count_multiplier_2' + '_attack_step_0.01_threshold_'+ str(thresh)+ '.pth'
+				elif args.attack_type == "apgd":
 					data_path=f"../exp/train_dqn_baseline/{env_id}/wrapper_sigma={sigma}-seed=0/checkpoints/{env_id}_restore.pth_" + \
-						'evals_1000_APGD_eps_' + str(attack_mag) + '_attack_step_count_multiplier_2' + '_threshold_'+ str(thresh)+ '.pth'
+						f'evals_{args.num_evals}_APGD_eps_' + str(attack_mag) + '_attack_step_count_multiplier_2' + '_threshold_'+ str(thresh)+ '.pth'
 				cur_val = (torch.tensor( torch.load(data_path)).float().mean().item())
 				if (attack_val is None or cur_val < attack_val):
 					attack_val = cur_val
@@ -69,9 +76,10 @@ def plot_gaussian():
 				color=colors[j], linestyle ="-", label="Gaussian (σ = " + str(sigma) + ')')
 	return
 
+
 def plot_camp():
 	# CAMP
-	for j,sigma in enumerate([0.0, 0.2, 0.6]):
+	for j,sigma in enumerate(sigma_list):
 		path = f'../eval_exp/test_dqn_camp/{env_id}/wrapper_sigma={sigma}-lamda={lamda}-eval/eval_results.pth'
 		attack_vals =  [torch.tensor(torch.load(path)).float().mean().item()]
 		attack_sems = [sem(torch.tensor(torch.load(path)))]
@@ -79,12 +87,12 @@ def plot_camp():
 			attack_val = None
 			attack_sem = None
 			for i,thresh in enumerate([q_gap]):
-				if attack_type == "pgd":
+				if args.attack_type == "pgd":
 					data_path=f"../exp/train_dqn_camp/{env_id}/wrapper_sigma={sigma}-lamda={lamda}-seed=0/checkpoints/{env_id}_restore.pth_" + \
-						'evals_1000_attack_eps_' + str(attack_mag) + '_attack_step_count_multiplier_2' + '_attack_step_0.01_threshold_'+ str(thresh)+ '.pth'
-				elif attack_type == "apgd":
+						f'evals_{args.num_evals}_attack_eps_' + str(attack_mag) + '_attack_step_count_multiplier_2' + '_attack_step_0.01_threshold_'+ str(thresh)+ '.pth'
+				elif args.attack_type == "apgd":
 					data_path=f"../exp/train_dqn_camp/{env_id}/wrapper_sigma={sigma}-lamda={lamda}-seed=0/checkpoints/{env_id}_restore.pth_" + \
-						'evals_1000_APGD_eps_' + str(attack_mag) + '_attack_step_count_multiplier_2' + '_threshold_'+ str(thresh)+ '.pth'
+						f'evals_{args.num_evals}_APGD_eps_' + str(attack_mag) + '_attack_step_count_multiplier_2' + '_threshold_'+ str(thresh)+ '.pth'
 				cur_val = (torch.tensor(torch.load(data_path)).float().mean().item())
 				if (attack_val is None or cur_val < attack_val):
 					attack_val = cur_val
@@ -106,4 +114,4 @@ plt.xlim(0,1.)
 plt.xlabel('Perturbation Budget', fontsize=14)
 plt.ylim(0,201)
 plt.ylabel('Average Return', fontsize=14)
-plt.savefig(f'cartpole_simple_{attack_type}_threshold={q_gap}.pdf', dpi=400,bbox_inches='tight')
+plt.savefig(f'cartpole_simple_{args.attack_type}_threshold={q_gap}.pdf', dpi=400,bbox_inches='tight')

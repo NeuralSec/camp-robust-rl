@@ -1,4 +1,4 @@
-## The Code of Our Paper "CAMP in the Odyssey: Provably Robust Reinforcement Learning with Certified Radius Maximization"
+## The Code of Our Paper "CAMP in the Odyssey: Provably Robust Reinforcement Learning with Certified Radius Maximization" (USENIX Security Symposium'25)
 
 We introduced CAMP and policy imitation to enhance the certified robustness of deep reinforcement learning agents. Policy imitation enables seamless integration of the CAMP loss into DQN training, significantly boosting the certified expected return of DQN agents under policy smoothing certification.
 
@@ -13,6 +13,7 @@ python -m venv .rlenv
 source .rlenv/bin/activate
 pip install --upgrade pip --no-cache-dir
 pip install -r requirements.txt --no-cache-dir
+deactivate
 ```
 
 ### 2. Train Agents
@@ -38,7 +39,7 @@ bash noisynet_train.sh
 ```
 Arguments to set in the script:\
 ```env_id```: Set RL environment. Select from {"cartpole_simple", "cartpole_multiframe", "highway"}.\
-```env_sigma```: Set the train-time noise scale. Please refer to the paper for the settings in our experiments.\
+```env_sigma```: Set the train-time noise scale. Please refer to the paper for the settings in our experiments.
 
 
 ### 3. Test Agents
@@ -96,3 +97,16 @@ Arguments setting:\
 ```checkpoint_path```: The path to the checkpoint that will be attacked (use the provided ones in the script by only adjusting the ```env_sigma``` value).\
 ```attack_eps```: Total perturbation budget.\
 ```store_all_rewards```: Storing reward at each step instead of only saving the episodic return. Turn on when testing in {```"highway"```, ```"freeway"```, ```"bankheist"```} for correctly plotting the results.
+
+Use ```attacks/<env_id>_plot_attacks.py``` to plot attack results by setting ```attack_type``` to either ```pgd``` or ```apgd```.
+
+
+### 6. USENIX Artifact Evaluation
+Four scripts are provided for USENIX artifact evaluation.
+```
+bash ae_step1.sh
+bash ae_step2.sh
+bash ae_step3.sh
+bash ae_step4.sh
+```
+These scripts enable a fussless reproduction of the training-testing-certification pipeline and empirical robustness evaluation tasks in "Cartpole-1" under a specific hyper-parameter setting ($\sigma=0.2$). 
