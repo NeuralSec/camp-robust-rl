@@ -10,6 +10,7 @@ The code requires Python version 3.11 and a Linux environment.
 ```
 cd ${repository_name}
 python -m venv .rlenv
+source .rlenv/bin/activate
 pip install --upgrade pip --no-cache-dir
 pip install -r requirements.txt --no-cache-dir
 ```
