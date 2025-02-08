@@ -12,6 +12,7 @@ cd ${repository_name}
 python -m venv .rlenv
 source .rlenv/bin/activate
 pip install --upgrade pip --no-cache-dir
+pip install --no-cache-dir setuptools==75.8.0
 pip install -r requirements.txt --no-cache-dir
 deactivate
 ```
