@@ -135,7 +135,8 @@ def plot_cert_comparison():
     if "cartpole" in args.env_id:
         eps_range = 1.01
         #sigma_list = [0.2, 0.4, 0.6, 0.8, 1.0] # For full results in Figure 8
-        sigma_list = [0.2, 0.6, 1.0] # For results in Figure 2
+        #sigma_list = [0.2, 0.6, 1.0] # For results in Figure 2
+        sigma_list = [0.2] # For USENIX Security'25 AE only
     elif "highway" in args.env_id:
         eps_range = 2.01
         #sigma_list = [0.4, 0.8, 1.2, 1.6, 2.0] # For full results in Figure 8
