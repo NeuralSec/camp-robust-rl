@@ -47,7 +47,8 @@ Arguments to set in the script:\
 ```env_id```: Set RL environment. Select from {"cartpole_simple", "cartpole_multiframe", "highway"}.\
 ```env_sigma```: Set the train-time noise scale. Please refer to the paper for the settings in our experiments.
 
-To monitor training with TensorBoard, open a new terminal, navigate to the root directory of the repository with the virtual environment activated, and run \code{tensorboard --logdir="exp"}. This will allow you to visualize the training progress.
+To monitor training with TensorBoard, open a new terminal, navigate to the root directory of the repository with the virtual environment activated, and run ```tensorboard --logdir="exp"```. 
+This will allow you to visualize the training progress.
 
 ### 3. Test Agents
 Test an agent, trained by either CAMP or Gaussian, for multiple runs to obtain and save testing rewards.
