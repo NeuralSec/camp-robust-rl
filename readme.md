@@ -16,6 +16,11 @@ pip install --no-cache-dir setuptools==75.8.0
 pip install -r requirements.txt --no-cache-dir
 deactivate
 ```
+Our code is developed on CSIRO Virga HPC with SUSE Linux Enterprise Server SLE15. 
+```requirements.txt``` includes a comprehensive list of dependencies, rather than just the minimal required ones, to facilitate the recreation of the virtual environment used during our experiments.
+We have observed that when installing dependencies on Ubuntu (tested on Ubuntu 24.04.1 LTS), running ```pip install -r requirements.txt --no-cache-dir``` may result in errors like segmentation fault due to conflicting dependency versions. 
+If this occurs, rerunning the same command immediately after the error often resolves the issue.
+
 
 ### 2. Train Agents
 Run the following script to train DQN using **CAMP** or the **Gaussian baseline**.
@@ -42,6 +47,7 @@ Arguments to set in the script:\
 ```env_id```: Set RL environment. Select from {"cartpole_simple", "cartpole_multiframe", "highway"}.\
 ```env_sigma```: Set the train-time noise scale. Please refer to the paper for the settings in our experiments.
 
+To monitor training with TensorBoard, open a new terminal, navigate to the root directory of the repository with the virtual environment activated, and run \code{tensorboard --logdir="exp"}. This will allow you to visualize the training progress.
 
 ### 3. Test Agents
 Test an agent, trained by either CAMP or Gaussian, for multiple runs to obtain and save testing rewards.
