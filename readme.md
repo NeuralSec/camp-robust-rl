@@ -18,7 +18,7 @@ deactivate
 ```
 Our code is developed on CSIRO Virga HPC with SUSE Linux Enterprise Server SLE15. 
 ```requirements.txt``` includes a comprehensive list of dependencies, rather than just the minimal required ones, to facilitate the recreation of the virtual environment used during our experiments.
-We have observed that when installing dependencies on Ubuntu (tested on Ubuntu 24.04.1 LTS), running ```pip install -r requirements.txt --no-cache-dir``` may result in errors like segmentation fault due to conflicting dependency versions. 
+We have observed that when installing dependencies on some Ubuntu distributions (tested on WSL2 Ubuntu 24.04.1 LTS), running ```pip install -r requirements.txt --no-cache-dir``` may result in errors like segmentation fault due to conflicting dependency versions. 
 If this occurs, rerunning the same command immediately after the error often resolves the issue.
 
 
