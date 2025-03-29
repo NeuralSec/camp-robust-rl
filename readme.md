@@ -73,15 +73,15 @@ Arguments setting:\
 
 
 ### 4. Certify Expected Return and Plot Results
-Load the rewards saved in Step 3 and certify the low bound of the expected return. Return the certified expected return in curve plots.
+Load the rewards saved in Step 3 and certify the lower bound of the expected return. Return the certified expected return in curve plots.
 ```
 bash cert.sh
 ```
 Arguments setting:\
-```env_id```: Set the RL environment the agent is from. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```, ```"pong1r"```, ```"freeway"```, ```"bankheist"```}.\
+```env_id```: Set the RL environment the agent is in. Select from {```"cartpole_simple"```, ```"cartpole_multiframe"```, ```"highway"```, ```"pong1r"```, ```"freeway"```, ```"bankheist"```}.\
 ```lamda```: The $\lambda$ value of the results to be loaded.\
-```to_plot```: Which figure to plot. Select from {```"comparison"```, ```"ablation"```}. ```"comparison"``` plots the certified expected returns from different training methods in various environments. ```"ablation"``` plot the ablation study on $\lambda$.
-
+```to_plot```: Which figure to plot. Select from {```"comparison"```, ```"ablation"```}. ```"comparison"``` plots the certified expected returns from different training methods in various environments. ```"ablation"``` plot the ablation study on $\lambda$.\
+You may adjust ```sigma_list``` in Lines 139 and 143 for plotting the results from corresponding $\sigma$ configurations.
 
 ### 5. Attack Agents and Plot Results
 We adopt PGD and APGD attacks to evaluate the empirical robustness of agents. This part requires a little bit of modification of the script: **the to-be-executed ```.py``` file should be selected according to the RL environment.** Please follow the comments in the script. Run the following script for **PGD**:
@@ -94,7 +94,6 @@ Arguments setting:\
 ```attack_eps```: Total perturbation budget.\
 ```store_all_rewards```: Storing reward at each step instead of only saving the episodic return. Turn on when testing in {```"highway"```, ```"freeway"```, ```"bankheist"```} for correctly plotting the results.
 
-
 Use the following for **APGD**:
 ```
 cd attacks
@@ -106,7 +105,6 @@ Arguments setting:\
 ```store_all_rewards```: Storing reward at each step instead of only saving the episodic return. Turn on when testing in {```"highway"```, ```"freeway"```, ```"bankheist"```} for correctly plotting the results.
 
 Use ```attacks/<env_id>_plot_attacks.py``` to plot attack results by setting ```attack_type``` to either ```pgd``` or ```apgd```.
-
 
 ### 6. USENIX Artifact Evaluation
 Four scripts are provided for USENIX artifact evaluation.
