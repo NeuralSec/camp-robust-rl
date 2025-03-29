@@ -116,4 +116,6 @@ bash ae_step2.sh
 bash ae_step3.sh
 bash ae_step4.sh
 ```
-These scripts enable a fussless reproduction of the training-testing-certification pipeline and empirical robustness evaluation tasks in "Cartpole-1" under a specific hyper-parameter setting ($\sigma=0.2$). 
+These scripts enable a fuss-free reproduction of the training-testing-certification pipeline and empirical robustness evaluation tasks in "Cartpole-1" under a specific hyper-parameter setting ($\sigma=0.2$). 
+This configuration represents one of the major improvement cases (*i.e.*, "Cartpole" and "Highway"), and other configurations can be evaluated by simply setting the ```env_id``` and ```env_sigma``` arguments in the scripts.
+Otherwise, please follow Sections 1-5 for detailed instructions on running experiments in different environments with various hyper-parameter settings. 
