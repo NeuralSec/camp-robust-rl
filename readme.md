@@ -1,5 +1,14 @@
 ## The Code of Our Paper "CAMP in the Odyssey: Provably Robust Reinforcement Learning with Certified Radius Maximization" (USENIX Security Symposium'25)
 
+<p align="center">
+  <a href="https://neuralsec.github.io/projects/camp-robust-rl/">
+    <img src="https://img.shields.io/badge/Project-Page-blue?style=for-the-badge" alt="Project Page">
+  </a>
+  <a href="https://www.usenix.org/conference/usenixsecurity25/presentation/wang-derui">
+    <img src="https://img.shields.io/badge/Paper-Link-red?style=for-the-badge" alt="Paper">
+  </a>
+</p>
+
 We introduced CAMP and policy imitation to enhance the certified robustness of deep reinforcement learning agents. Policy imitation enables seamless integration of the CAMP loss into DQN training, significantly boosting the certified expected return of DQN agents under policy smoothing certification.
 
 
